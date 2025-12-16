@@ -1,0 +1,95 @@
+setclipboard("https://discord.gg/nTp7xv4PjB")
+task.wait(0.5)
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local executor = ""
+local version = "Beta 0.1.0"
+local Window = Rayfield:CreateWindow({
+   Name = "Durian Executor (Beta)",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "Durian Executor",
+   LoadingSubtitle = "Durian Hub",
+   ShowText = "Rayfield", -- for mobile users to unhide rayfield, change if you'd like
+   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   ToggleUIKeybind = "K", -- The keybind to toggle the UI visibility (string like "K" or Enum.KeyCode)
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = true, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Durian Executor",
+      Subtitle = "Key System",
+      Note = "Discord copied!", -- Use this to tell the user how to get a key
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Durian-Bruh"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+local Tab = Window:CreateTab("Main", 4483362458) -- Title, Image
+local Settings = Window:CreateTab("Settings", 4483362458) -- Title, Image
+local Paragraph = Tab:CreateParagraph({Title = "No errors found yet!", Content = "Syntax errors appear here!"})
+local Input = Tab:CreateInput({
+   Name = "Code",
+   CurrentValue = "",
+   PlaceholderText = "e.g: print ('hello world')",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+   executor = Text-- The function that takes place when the input is changed
+   -- The variable (Text) is a string for the value in the text box
+   end,
+})
+local Button = Tab:CreateButton({
+   Name = "Execute",
+   Callback = function()
+   local success, failed = pcall(function()
+  	loadstring(executor)()-- The function that takes place when the button is pressed
+   end)
+   if not success then
+  	Paragraph:Set({Title = "Syntax Errors found!", Content = failed})
+   end
+   end,
+})
+local Button = Tab:CreateButton({
+   Name = "Clear",
+   Callback = function()
+   Input:Set("") -- The new input text value-- The function that takes place when the button is pressed
+   end,
+})
+
+local Label = Settings:CreateLabel("Current version: " .. version, 4483362458, Color3.fromRGB(40, 40, 40), false) -- Title, Icon, Color, IgnoreTheme
+local Input = Settings:CreateInput({
+   Name = "Set FPS cap",
+   CurrentValue = "",
+   PlaceholderText = "Input Placeholder",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+   pcall(function()
+  	setfpscap(tonumber(Text))
+   end)-- The function that takes place when the input is changed
+   -- The variable (Text) is a string for the value in the text box
+   end,
+})
+local Button = Settings:CreateButton({
+   Name = "Show executor name",
+   Callback = function()
+   Label:Set(identifyexecutor(), 4483362458, Color3.fromRGB(40, 40, 40), false)
+   task.wait(5)
+   Label:Set("Current version: " .. version, 4483362458, Color3.fromRGB(40, 40, 40), false) -- Title, Icon, Color, IgnoreTheme-- Title, Icon, Color, IgnoreTheme-- The function that takes place when the button is pressed
+   end,
+})
