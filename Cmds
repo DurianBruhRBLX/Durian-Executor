@@ -1,0 +1,16 @@
+--Services
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer 
+
+local function loadurl(url)
+	loadstring(game:HttpGet(url))()
+end
+local function fetchurl(url2)
+	game:HttpGet(url2)
+end
+local function copy(text1)
+	setclipboard(text1)
+end
+local function kickplayer(reason)
+	player:Kick(reason)
+end
