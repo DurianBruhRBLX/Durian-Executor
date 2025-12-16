@@ -6,14 +6,14 @@ WARNING: DURIAN EXECUTOR IS STILL IN BETA! EXPECT BUGS AND MISSING FEATURES
 # 1. Durian:loadurl()
 so this will load a script from a raw link like loadstring(game:HttpGet(""))()
 
-example: durian.loadurl(https://url.com)
+example: Durian:loadurl(https://url.com)
 
 # 2. Durian:fetchurl()
 so this will fetch texts from a raw link like game:HttpGet("")
 
-example: durian.fetchurl(https://url.com)
+example: Durian:fetchurl(https://url.com)
 
 # 3. Durian:copy()
 this will copy a text
 
-example: durian.copy(Hello World!)
+example: Durian:copy(Hello World!)
